@@ -1,0 +1,3 @@
+HKEY_CURRENT_USER/Volatile Environment
+USERNAME
+更改为自己的

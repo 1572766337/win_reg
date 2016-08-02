@@ -1,0 +1,2 @@
+HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\GraphicsDrivers\Configuration\
+在Configuration上右键，查找Scaling，修改4为3

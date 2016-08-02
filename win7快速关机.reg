@@ -1,0 +1,6 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\快速关机(S)]
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\快速关机(S)\command]
+@="shutdown -s -t 0"

@@ -1,0 +1,1 @@
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shellex\ContextMenuHandlers\igfxcui" /ve /d {3AB1675A-CCFF-11D2-8B20-00A0C93CB1F4} /t reg_sz /f

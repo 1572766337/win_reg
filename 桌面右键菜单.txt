@@ -1,0 +1,3 @@
+只适用于Win7（添加程序启动快捷键）
+reg add HKEY_CLASSES_ROOT\Directory\Background\shell\右键菜单名字
+reg add HKEY_CLASSES_ROOT\Directory\Background\shell\右键菜单名字\command /ve /t reg_sz /d 可执行文件路径 /f

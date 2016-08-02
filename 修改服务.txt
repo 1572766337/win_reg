@@ -1,0 +1,71 @@
+在Windows 2003（2000、XP类似）系统的“服务”窗口中并不能添加或删除服务，常用的方法有以下几种：
+
+一、修改注册表
+
+       在“开始→运行”中键入“regedit.exe”，打开“注册表编辑器”，展开分支“HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services”，在右侧窗格中显示的就是本机安装的服务项。(从注册表中删除相应服务子键后，需要重新启动才能完全地从services.msc列表中移除)
+
+　　如果要新建服务，只须点击“编辑→新建→项”，然后为此项命名，如“test”；然后右击该项，选择“新建→字符串值”或“新建→DWORD值”即可。添加一个服务项目具体需要添加的键值如下：
+
+　　“DisplayName”，字符串值，对应服务名称；
+
+　　“Descrīption”，字符串值，对应服务描述；
+
+　　“ImagePath”，字符串值，对应该服务程序所在的路径；
+
+　　“ObjectName”，字符串值，值为“LocalSystem”，表示本地登录；
+
+　　“ErrorControl”，DWORD值，值为“1”；
+
+　　“Start”，DWORD值，值为2表示自动运行，值为3表示手动运行，值为4表示禁止；
+
+　　“Type”，DWORD值，应用程序对应10，其他对应20。
+
+二、通过注册表文件删除注册表中的项
+
+Windows Registry Editor Version 5.00
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
+
+保存为reg文件双击导如即可删除此项
+
+注意有个“-”号 删除注册表中的值
+
+Windows Registry Editor Version 5.00 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
+
+"SoundMan"=-
+
+这样可以删除此值
+
+对于服务的启动类型
+
+对应注册表
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services] 下的各个子项
+
+服务名字下的start键表示启动类型
+
+1是系统
+
+2是自动
+
+3是手动
+
+4是禁用
+
+关于终止进程的操作
+
+XP下可以选择taskkill命令
+
+终止记事本： taskkill /IM notepad.exe /F
+
+/F的意思是强制终止
+
+
+三、windows 从注册表删除服务项
+
+   sc <server> delete [service name]
+
+        从注册表删除服务项。
+        如果服务正在运行，或另一进程已经打开
+        到此服务的句柄，服务将简单地标记为
+        删除。

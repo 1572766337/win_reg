@@ -1,0 +1,77 @@
+
+REG ADD KeyName [/v ValueName | /ve] [/t Type] [/s Separator] [/d Data] [/f]
+        [/reg:32 | /reg:64]
+
+  KeyName  [\\Machine\]FullKey
+           Machine  远程机器名 - 忽略默认到当前机器。远程机器上
+                    只有 HKLM 和 HKU 可用。
+           FullKey  ROOTKEY\SubKey
+           ROOTKEY  [ HKLM | HKCU | HKCR | HKU | HKCC ]
+           SubKey   所选 ROOTKEY 下注册表项的完整名称。
+
+  /v       所选项之下要添加的值名称。
+
+  /ve      为注册表项添加空白值名称(默认)。
+
+  /t       RegKey 数据类型
+           [ REG_SZ    | REG_MULTI_SZ | REG_EXPAND_SZ |
+             REG_DWORD | REG_QWORD    | REG_BINARY    | REG_NONE ]
+           如果忽略，则采用 REG_SZ。
+
+  /s       指定一个在 REG_MULTI_SZ 数据字符串中用作分隔符的字符
+           如果忽略，则将 "\0" 用作分隔符。
+
+  /d       要分配给添加的注册表 ValueName 的数据。
+
+  /f       不用提示就强行覆盖现有注册表项。
+
+ /reg:32  指定应该使用 32 位注册表视图访问的注册表项。
+
+ /reg:64  指定应该使用 64 位注册表视图访问的注册表项。
+
+例如:
+
+  REG ADD \\ABC\HKLM\Software\MyCo
+    添加远程机器 ABC 上的一个注册表项 HKLM\Software\MyCo
+
+  REG ADD HKLM\Software\MyCo /v Data /t REG_BINARY /d fe340ead
+    添加一个值(名称: Data，类型: REG_BINARY，数据: fe340ead)
+
+  REG ADD HKLM\Software\MyCo /v MRU /t REG_MULTI_SZ /d fax\0mail
+    添加一个值(名称: MRU，类型: REG_MULTI_SZ，数据: fax\0mail\0\0)
+
+  REG ADD HKLM\Software\MyCo /v Path /t REG_EXPAND_SZ /d ^%systemroot^%
+    添加一个值(名称: Path，类型: REG_EXPAND_SZ，数据: %systemroot%)
+    注意: 在扩充字符串中使用插入符号 ( ^ )
+
+REG DELETE KeyName [/v ValueName | /ve | /va] [/f] [/reg:32 | /reg:64]
+
+  KeyName    [\\Machine\]FullKey
+    远程机器名 - 如果省略，默认情况下将使用当前机器。
+             远程机器上只有 HKLM 和 HKU 可用。
+    FullKey  ROOTKEY\SubKey
+    ROOTKEY  [ HKLM | HKCU | HKCR | HKU | HKCC ]
+    SubKey   所选 ROOTKEY 下面的注册表项的全名。
+
+  ValueName  所选项下面的要删除的值名称。
+             如果省略，则删除该项下面的所有子项和值。
+
+  /ve        删除空值名称的值(默认)。
+
+  /va        删除该项下面的所有值。
+
+  /f         不用提示，强制删除。
+
+  /reg:32    指定应使用 32 位注册表视图访问
+             注册表项。
+
+  /reg:64    指定应使用 64 位注册表视图访问
+             注册表项。
+
+示例:
+
+  REG DELETE HKLM\Software\MyCo\MyApp\Timeout
+    删除注册表项 Timeout 及其所有子项和值
+
+  REG DELETE \\ZODIAC\HKLM\Software\MyCo /v MTU
+    删除 ZODIAC 上的 MyCo 下面的注册表值 MTU
